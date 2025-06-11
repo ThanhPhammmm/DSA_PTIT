@@ -26,7 +26,7 @@ string InfixtoPostfix(string s){
 				result += temp.top();
 				temp.pop();
 			}
-			if(temp.size() > 0) temp.pop();
+			if(temp.size() > 0) temp.pop();		//xoa dau '('
 		}
 		else{
 			while(temp.size() > 0 && precedence(temp.top()) >= precedence(s[i])){
