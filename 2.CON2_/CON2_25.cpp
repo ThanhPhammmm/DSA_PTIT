@@ -1,3 +1,5 @@
+/*Done*/
+/*Khong reset ok ???*/
 #include <bits/stdc++.h>
 using namespace std;
 

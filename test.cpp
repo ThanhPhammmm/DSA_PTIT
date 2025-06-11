@@ -1,35 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string result;
-
-void Try(string s, int k){
-    if(k == 0){
-        return;
-    }
-    for(int i = 0;i < s.length() - 1;i++){
-        for(int j = i + 1;j < s.length();j++){
-            if(s[j] > s[i]){
-                swap(s[j],s[i]);
-                if(s > result){
-                    result = s;
+int precedence(char op){
+    if(op == '*' || op == '/') return 2;
+    if(op == '+' || op == '-') return 1;
+    return 0;
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        stack<char> st;
+        string result = "";
+        for(int i = 0;i < s.length();i++){
+            if(isalpha(s[i])){
+                result += s[i];
+            }
+            else if(s[i] == '('){
+                st.push(s[i]);
+            }
+            else if(s[i] == ')'){
+                while(st.top() != '('){
+                    result += st.top();
+                    st.pop();
                 }
-                Try(s, k - 1);
-                swap(s[j],s[i]);
+                st.pop();   //xoa dau '('
+            }
+            else{
+                while(!st.empty() && precedence(st.top()) >= precedence(s[i])){
+                    result += st.top();
+                    st.pop();
+                }
+                st.push(s[i]);
             }
         }
-    }
-}
-
-int main() {
-    int t;
-    cin >> t;
-    while (t--){
-        int n; 
-        string s;
-        cin>>n>>s;
-        result = s;
-        Try(s, n);
+        while(!st.empty()){
+            result += st.top();
+            st.pop();
+        }
         cout<<result<<endl;
     }
 }
