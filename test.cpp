@@ -1,61 +1,87 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct TreeNode{
+struct Node{
     int value;
-    TreeNode* left;
-    TreeNode* right;
-
-    TreeNode(int x){
+    Node* left;
+    Node* right;
+    Node(int x){
         value = x;
         left = NULL;
         right = NULL;
     }
 };
 
-TreeNode* buildTree(vector<int>& tree){
-    TreeNode* root = new TreeNode(tree[0]);
-    queue<TreeNode*> q;
-    q.push(root);
-    int i = 1;
+map<int,Node*> nodeMap;
 
-    while(!q.empty() && i < tree.size()){
-        TreeNode* temp = q.front();
-        q.pop();
+Node* buildTree(int N){
+    Node* root;
 
-        if(i < tree.size() && tree[i] != -1){
-            temp->left = new TreeNode(tree[i]);
-            q.push(temp->left);
+    for(int i = 0;i < N;i++){
+        int x, y;
+        char dir;
+        cin>>x>>y>>dir;
+
+        if(nodeMap.find(x) == nodeMap.end()){
+            nodeMap[x] = new Node(x);
         }
-        i++;
-
-        if(i < tree.size() && tree[i] != -1){
-            temp->right = new TreeNode(tree[i]);
-            q.push(temp->right);
+        if(nodeMap.find(y) == nodeMap.end()){
+            nodeMap[y] = new Node(y);
         }
-        i++;
+
+        if(dir == 'L'){
+            nodeMap[x]->left = nodeMap[y];
+        }
+        else{
+            nodeMap[x]->right = nodeMap[y];
+        }
+        if(i == 0){
+            root = nodeMap[x];
+        }
     }
     return root;
 }
-int findDeepestPath(TreeNode* root){
-    if(root == NULL){
-        return 0;
+void spiralOrder(Node* root){
+    queue<Node*> q;
+    q.push(root);
+    int LeftRight = 0;
+
+    while(!q.empty()){
+        int size = q.size();
+        vector<int> level(size);
+
+        for(int i = 0;i < size;i++){
+            Node* node = q.front();
+            q.pop();
+
+            int index;
+            if(LeftRight){
+                index = i;
+            }
+            else{
+                index = size - i - 1;
+            }
+            level[index] = node->value;
+
+            if(node->left) q.push(node->left);
+            if(node->right) q.push(node->right);
+        }
+        for(int num : level){
+            cout<<num<<" ";
+        }
+        LeftRight = !LeftRight;
     }
-    return 1 + max(findDeepestPath(root->left), findDeepestPath(root->right));
+    cout<<endl;
 }
+
 int main(){
     int t;
     cin>>t;
     while(t--){
-        int n;
-        cin>>n;
-
-        vector<int> tree(n);
-        for(int i = 0;i < n;i++){
-            cin>>tree[i];
-        }
-        TreeNode* root = buildTree(tree);
-        int ans = findDeepestPath(root);
-        cout<<ans<<endl;
+        int N;
+        cin>>N;
+        Node* root = buildTree(N);
+        spiralOrder(root);
+        nodeMap.clear();
     }
 }

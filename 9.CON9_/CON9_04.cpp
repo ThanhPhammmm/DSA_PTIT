@@ -6,7 +6,7 @@ int main(){
     int n;
     cin>>n;
 
-    vector<vector<int>> edges(n + 1, vector(n + 1, 0));
+    vector<vector<int>> edges(n + 1, vector<int>(n + 1, 0));
 
     for(int i = 1;i <= n;i++){
         int x, y;
