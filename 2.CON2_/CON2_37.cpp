@@ -1,3 +1,6 @@
+/*Done*/
+/*resize: Không xóa đi giá trị hiện tại của vector*/
+
 #include <bits/stdc++.h>
 using namespace std;
 

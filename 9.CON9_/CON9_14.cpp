@@ -19,7 +19,6 @@ using namespace std;
 
 vector<vector<int>> edges;
 vector<int> used;
-vector<int> trace;
 
 void DFS(int num){
     if(used[num]) return;
@@ -28,7 +27,6 @@ void DFS(int num){
 
     for(int i = 0;i < edges[num].size();i++){
         if(!used[edges[num][i]]){
-            trace[edges[num][i]] = num;
             DFS(edges[num][i]);
         }
     }
@@ -43,7 +41,6 @@ int main(){
 
         edges.resize(1005);
         used.resize(1005, 0);
-        trace.resize(1005, 0);
 
         while(m--){
             int u, v;
@@ -65,8 +62,8 @@ int main(){
             else{
                 cout<<"NO"<<endl;
             }
-            used.assign(1005, 0);
-            trace.assign(1005, 0);
+                    used.assign(1005, 0);
+
         }
     }
 }
