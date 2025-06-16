@@ -1,3 +1,4 @@
+/*Done*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -13,10 +14,11 @@ int main() {
         int count = 0, j = 0;
 
         for (int i = 0; i < n; ++i) {
-            while (j < n && A[j] - A[i] < k){
-                j++;
+            for(int j = i + 1;j < n;j++){
+                if(A[j] - A[i] < k){
+                    count += 1;
+                }
             }
-            count += j - i - 1;/*số cặp = từ i + 1 đến j - 1*/
         }
 
         cout << count << endl;

@@ -1,65 +1,59 @@
-#include<bits/stdc++.h>
+/*Done*/
+#include <bits/stdc++.h>
 using namespace std;
 
 string s, e;
 
-void BFS(set<string> &mySet)
-{
+void countSteps(set<string>& a){
+    if(s == e){
+        cout<<1<<endl;
+        return;
+    }
+
     queue<string> q;
     q.push(s);
-    int ans = 1;
-    while(q.size())
-    {
-        ++ans;
+    int res = 1;
+
+    while(!q.empty()){
         queue<string> tmp = q;
-        while(tmp.size())
-        {
-            string u = tmp.front();
+        res += 1;
+        while(!tmp.empty()){
+            string str = tmp.front();
             tmp.pop();
             q.pop();
-            for(int i = 0; i < u.size(); ++i)
-            {
-                char ori = u[i];
-                for(char j = 'A'; j <= 'Z'; ++j)
-                {
-                    u[i] = j;
-                    if(u == e)
-                    {
-                        cout << ans << endl;
+            for(int i = 0;i < str.size();i++){
+                char ori = str[i];
+                for(char j = 'A';j <= 'Z';j++){
+                    str[i] = j;
+                    if(str == e){
+                        cout<<res<<endl;
                         return;
                     }
-                    if(mySet.find(u) != mySet.end())
-                    {
-                        q.push(u);
-                        mySet.erase(u);
+                    if(a.find(str) != a.end()){
+                        q.push(str);
+                        a.erase(str);
                     }
                 }
-                u[i] = ori;
+                str[i] = ori;
             }
         }
     }
 }
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        cin>>s>>e;
 
-int main()
-{
-    int t, n;
-    cin >> t;
-    string x;
-    while(t--)
-    {
-        cin >> n >> s >> e;
-        set<string> mySet;
-        while(n--)
-        {
-            cin >> x;
-            mySet.insert(x);
+        set<string> a;
+        while(n--){
+            string x;
+            cin>>x;
+            a.insert(x);
         }
-        if(s == e)
-        {
-            cout << 1 << endl;
-            continue;
-        }
-        BFS(mySet);
+        a.erase(s);
+        countSteps(a);
     }
-    return 0;
 }

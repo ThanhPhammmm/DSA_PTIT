@@ -1,30 +1,35 @@
+/*Done*/
+/*
+Nếu một ký tự có số lần xuất hiện lớn hơn (n + 1) / 2 (trong đó n là độ dài chuỗi), 
+thì không thể sắp xếp lại được sao cho không có hai ký tự giống nhau kề nhau.
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isArrangeable(string S){
-    vector<int> alphabet(26, 0);
-    for(char c : S){
-        alphabet[c - 'a']++;
+int canRearrange(string s) {
+    int n = s.size();
+    vector<int> freq(26, 0);
+
+    for (char c : s) {
+        freq[c - 'a']++;
     }
 
-    for(int i = 0;i < 26;i++){
-        if(alphabet[S[i] - 'a'] > (S.length() + 1)/2){
-            return 0;
-        }
-    }
-    return 1;
+    int maxFreq = *max_element(freq.begin(), freq.end());
+
+    // Kiểm tra điều kiện
+    if (maxFreq <= (n + 1) / 2)
+        return 1;
+    else
+        return -1;
 }
-int main(){
+
+int main() {
     int T;
-    cin>>T;
-    while(T--){
-        string S;
-        cin>>S;
-        if(isArrangeable(S)){
-            cout<<"1"<<endl;
-        }
-        else{
-            cout<<"-1"<<endl;
-        }
+    cin >> T;
+
+    while (T--) {
+        string s;
+        cin>>s;
+        cout << canRearrange(s) << endl;
     }
 }

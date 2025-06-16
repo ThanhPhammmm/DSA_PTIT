@@ -1,3 +1,15 @@
+/*Done*/
+/*
+
+balance: biểu thị số lượng [ đã thấy trừ đi số ] đã thấy
+
+Nếu tại một thời điểm nào đó balance < 0 nghĩa là thiếu dấu [, nên cần phải đổi dấu ] đang đứng ở đó với một dấu [ ở bên phải
+
+Mỗi lần như vậy ta sẽ:
+Ghi nhớ vị trí của các dấu [ trong một danh sách
+Khi thiếu dấu [, ta lấy dấu [ ở gần nhất bên phải để đổi chỗ, và tính tổng số bước cần hoán đổi
+
+*/
 #include <bits/stdc++.h>
 using namespace std;
 

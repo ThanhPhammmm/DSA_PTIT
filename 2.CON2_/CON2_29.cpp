@@ -1,36 +1,31 @@
+/*Done*/
 #include <bits/stdc++.h>
 using namespace std;
 
-int M, N;
-int result = 0;
-int A[105][105];
+int m, n;
+int res = 0;
 
-void backtracking(int row, int column){
-    if((row == M - 1) && (column == N - 1)){
-        result += 1;
+void Try(vector<vector<int>> &a, int row, int column){
+    if(a[row][column] == a[m - 1][n - 1]){
+        res += 1;
         return;
     }
-
-    if(row < M - 1){
-        backtracking(row + 1, column);
-    }
-    if(column < N - 1){
-        backtracking(row, column + 1);
-    }
+    if(row < m - 1) Try(a, row + 1, column);
+    if(column < n - 1) Try(a, row, column + 1);
 }
 int main(){
-    int T;
-    cin>>T;
-    while(T--){
-        cin>>M>>N;
-        for(int i = 0;i < M;i++){
-            for(int j = 0;j < N;j++){
-                cin>>A[i][j];
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>m>>n;
+        vector<vector<int>> a(m, vector<int>(n));
+        res = 0;
+        for(int i = 0;i < m;i++){
+            for(int j = 0;j < n;j++){
+                cin>>a[i][j];
             }
         }
-        result = 0;
-        backtracking(0, 0);
-
-        cout<<result<<endl;
+        Try(a, 0, 0);
+        cout<<res<<endl;
     }
 }

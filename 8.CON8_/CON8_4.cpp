@@ -1,33 +1,40 @@
+/*Done*/
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
+int main(){
     int t;
-    cin >> t;
-    while (t--)
-    {
-        int k, x;
+    cin>>t;
+    while(t--){
+        int k;
+        cin>>k;
         string s;
-        cin >> k >> s;
-        long long n = 0;
-        map<char, int> m;
+        cin>>s;
+        
+        map<char,int> a;
+        for(int i = 0;i < s.length();i++){
+            a[s[i]]++;
+        }
+
         priority_queue<int> q;
-        for (int i = 0; i < s.size(); i++)
-            m[s[i]]++;
-        for (auto i : m)
-            q.push(i.second);
-        while (k--)
-        {
-            x = q.top();
-            q.pop();
-            q.push(x - 1);
+        for(pair<char,int> c : a){
+            q.push(c.second);
         }
-        while (q.size())
-        {
-            n += q.top() * q.top();
+
+        while(k--){
+            int temp = q.top();
             q.pop();
+            temp--;
+            q.push(temp);
         }
-        cout << n << endl;
+
+        int res = 0;
+        while(!q.empty()){
+            int temp = q.top();
+            q.pop();
+            res += temp * temp;
+        }
+        
+        cout<<res<<endl;
     }
 }

@@ -1,3 +1,4 @@
+/*Done*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -17,8 +18,8 @@ string findSmallestMultiple(int N){
         if(used.find(reminder) == used.end()){
             used.insert(reminder);
 
-            q.push({num + "0", (reminder * 10) % N});
-            q.push({num + "9", (reminder * 10 + 9) % N});
+            q.push({num + "0", (reminder * 10) % N});       //Ghi nho
+            q.push({num + "9", (reminder * 10 + 9) % N});   //Ghi nho
         }
     }
     return "-1";

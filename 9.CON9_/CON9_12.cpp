@@ -1,9 +1,10 @@
+/*Done*/
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> edges;
-vector<int> used;
-vector<int> trace;
+vector<vector<int>> edges(100);
+vector<int> used(100, 0);
+vector<int> trace(100, 0);
 
 void findPath(int s, int d){
     if(!trace[d]){
@@ -48,10 +49,6 @@ int main(){
     while(t--){
         int v, e, s, d;
         cin>>v>>e>>s>>d;
-
-        edges.resize(v + 1);
-        used.resize(v + 1, 0);
-        trace.resize(v + 1, 0);
 
         while(e--){
             int x, y;

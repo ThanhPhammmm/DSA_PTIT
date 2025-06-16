@@ -7,7 +7,7 @@ void printMinNumber(string s) {
     int num = 1;
     for(int i = 0;i <= s.length();i++){
         st.push(num++);
-        if(i == s.length() || s[i] == 'I'){
+        if(i == s.length() || s[i] == 'I'){ //
             while(st.size() > 0){
                 cout<<st.top();
                 st.pop();

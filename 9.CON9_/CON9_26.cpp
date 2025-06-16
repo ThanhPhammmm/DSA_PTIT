@@ -1,49 +1,43 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int root[1001];
+const int MAX = 1005;
+int parent[MAX];
 
-int findRoot(int x){
-    if(x == root[x]){
-        return x;
-    }
-    return findRoot(root[x]);
+int find(int u) {
+    if (parent[u] == u)
+        return u;  // Path compression
+    return find(parent[u]);
 }
 
-bool unionSet(vector<pair<int, int>> &edges){
-    for(auto [x, y] : edges){
-        int u = findRoot(x);
-        int v = findRoot(y);
-        if(u == v){
-            return 1;
+bool unionSet(int u, int v) {
+    int pu = find(u);
+    int pv = find(v);
+    if (pu == pv) return true;  // Cycle detected
+    parent[pv] = pu;
+    return false;
+}
+
+int main() {
+    int T; cin >> T;
+    while (T--) {
+        int V, E;
+        cin >> V >> E;
+        
+        // Khởi tạo DSU
+        for (int i = 1; i <= V; ++i)
+            parent[i] = i;
+        
+        bool hasCycle = false;
+        for (int i = 0; i < E; ++i) {
+            int u, v;
+            cin >> u >> v;
+            if (unionSet(u, v))
+                hasCycle = true;
         }
-        root[v] = u;
+
+        cout << (hasCycle ? "YES" : "NO") << endl;
     }
     return 0;
-}
-int main(){
-    int t;
-    cin>>t;
-    while(t--){
-        int v, e;
-        cin>>v>>e;
-        for(int i = 1;i <= v;i++){
-            root[i] = i;
-        }
-        vector<pair<int, int>> edges;
-
-        while(e--){
-            int x, y;
-            cin>>x>>y;
-            edges.push_back({x, y});
-        }
-
-        if(unionSet(edges)){
-            cout<<"YES"<<endl;
-        }
-        else{
-            cout<<"NO"<<endl;
-        }
-
-    }
 }

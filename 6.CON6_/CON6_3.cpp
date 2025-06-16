@@ -1,23 +1,32 @@
+/*Done*/
 #include <bits/stdc++.h>
 using namespace std;
-int main() {
-	int t; cin >> t;
-	while (t--) {
-		int n; cin >> n;
-		int M[100000];
-		for (int i = 0; i < n; i++)
-			cin >> M[i];
-		int k,res = 0;
-		for (int i = 0; i < n - 1; i++)
-		{
-			k = i;
-			for (int j = i + 1; j < n; j++)
-				if (M[j] < M[k])
-					k = j;//find the smallest number that í greater than the curent number i
-			if (k != i)
-				res++;
-			swap(M[k], M[i]);
-		}
-		cout << res << endl;
-	}
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<int> a(n);
+        for(int i = 0;i < n;i++){
+            cin>>a[i];
+        }
+
+        int res = 0;
+
+        for(int i = 0;i < n;i++){
+            int pivot = i;
+            for(int j = i + 1;j < n;j++){
+                if(a[pivot] > a[j]){
+                    pivot = j;
+                }
+            }
+            if(i != pivot){
+                res += 1;
+                swap(a[i],a[pivot]);
+            }
+        }
+        cout<<res<<endl;
+    }
 }

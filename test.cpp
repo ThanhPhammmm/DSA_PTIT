@@ -1,87 +1,50 @@
-#include <bits/stdc++.h>
+/*Done*/
+#include <iostream>
+#include <vector>
 using namespace std;
 
-struct Node{
-    int value;
-    Node* left;
-    Node* right;
-    Node(int x){
-        value = x;
-        left = NULL;
-        right = NULL;
+vector<int> root(10000, 0);
+
+int findRoot(int num){
+    if(root[num] == num){
+        return num;
     }
-};
-
-map<int,Node*> nodeMap;
-
-Node* buildTree(int N){
-    Node* root;
-
-    for(int i = 0;i < N;i++){
-        int x, y;
-        char dir;
-        cin>>x>>y>>dir;
-
-        if(nodeMap.find(x) == nodeMap.end()){
-            nodeMap[x] = new Node(x);
-        }
-        if(nodeMap.find(y) == nodeMap.end()){
-            nodeMap[y] = new Node(y);
-        }
-
-        if(dir == 'L'){
-            nodeMap[x]->left = nodeMap[y];
-        }
-        else{
-            nodeMap[x]->right = nodeMap[y];
-        }
-        if(i == 0){
-            root = nodeMap[x];
-        }
-    }
-    return root;
-}
-void spiralOrder(Node* root){
-    queue<Node*> q;
-    q.push(root);
-    int LeftRight = 0;
-
-    while(!q.empty()){
-        int size = q.size();
-        vector<int> level(size);
-
-        for(int i = 0;i < size;i++){
-            Node* node = q.front();
-            q.pop();
-
-            int index;
-            if(LeftRight){
-                index = i;
-            }
-            else{
-                index = size - i - 1;
-            }
-            level[index] = node->value;
-
-            if(node->left) q.push(node->left);
-            if(node->right) q.push(node->right);
-        }
-        for(int num : level){
-            cout<<num<<" ";
-        }
-        LeftRight = !LeftRight;
-    }
-    cout<<endl;
+    return findRoot(root[num]);
 }
 
-int main(){
+int unionSet(int x, int y){
+    int u = findRoot(x);
+    int v = findRoot(y);
+
+    if(u == v){
+        return 1;
+    }
+    root[v] = u;
+    return false;
+}
+int main() {
     int t;
     cin>>t;
-    while(t--){
-        int N;
-        cin>>N;
-        Node* root = buildTree(N);
-        spiralOrder(root);
-        nodeMap.clear();
+    while (t--){
+        int v, e;
+        cin>>v>>e;
+
+        for(int i = 1;i <= v;i++){
+            root[i] = i;
+        }
+
+        int cycle = 0;
+
+        while(e--){
+            int x, y;
+            cin>>x>>y;
+
+            if(unionSet(x,y)){
+                cycle = 1;
+            }
+        }
+        if(cycle) cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
     }
+    
 }

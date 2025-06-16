@@ -1,48 +1,51 @@
+/*Done*/
 #include <bits/stdc++.h>
 using namespace std;
 
-int maxBitonicSum(const vector<int>& A, int N) {
-    vector<int> inc(N), dec(N);
+int solve(vector<int>& a){
+    int n = a.size();
+    vector<int> inc(n);
+    vector<int> dec(n);
 
-    for(int i = 0;i < N;i++){
-        inc[i] = A[i];
+    for(int i = 0;i < n;i++){
+        inc[i] = a[i];
+        dec[i] = a[i];
+    }
+
+    for(int i = 1;i < n;i++){
         for(int j = 0;j < i;j++){
-            if(A[j] < A[i] && inc[i] < A[i] + inc[j] ){
-                inc[i] = inc[j] + A[i];
+            if(a[i] > a[j]){
+                inc[i] = max(inc[i], inc[j] + a[i]);
             }
         }
     }
 
-    for(int i = N - 1;i >= 0;i--){
-        dec[i] = A[i];
-        for(int j = N - 1;j > i;j--){
-            if(A[i] > A[j] && dec[i] < A[i] + dec[j] ){
-                dec[i] = A[i] + dec[j];
+    for(int i = n - 2;i >= 0;i--){
+        for(int j = n - 1;j > i;j--){
+            if(a[i] > a[j]){
+                dec[i] = max(dec[i], dec[j] + a[i]);
             }
         }
     }
-
-    int maxSum = 0;
-    for(int i = 0;i < N;i++){
-        maxSum = max(maxSum, inc[i] + dec[i] - A[i]); 
-    }
-
-    return maxSum;
-}
-
-int main() {
-    int T;
-    cin >> T;
     
-    while (T--) {
-        int N;
-        cin >> N;
-        vector<int> A(N);
-        for (int i = 0; i < N; i++)
-            cin >> A[i];
-
-        cout << maxBitonicSum(A, N) << endl;
+    int res = 0;
+    for(int i = 0;i < n;i++){
+        res = max(res, inc[i] + dec[i] - a[i]);
     }
+    return res;
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<int> a(n);
+        for(int i = 0;i < n;i++){
+            cin>>a[i];
+        }
 
-    return 0;
+        int res = solve(a);
+        cout<<res<<endl;
+    }
 }

@@ -1,3 +1,5 @@
+/*Done*/
+/*Cach1*/
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -30,4 +32,42 @@ int main() {
         else cout << "NO\n";
     }
     return 0;
+}
+
+/*-------------------------------------------------------------------*/
+
+/*Cach2*/
+#include <bits/stdc++.h>
+using namespace std;
+
+bool ok = 0;
+
+void Try(vector<int>& a, int n, int s, int current, int index){
+    if(current > s || ok == 1){
+        return;
+    }
+    if(current == s){
+        ok = 1;
+        return;
+    }
+    if(index > n) return;
+    Try(a, n, s, current + a[index], index + 1);
+
+    Try(a, n, s, current, index + 1);
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n, s;
+        cin>>n>>s;
+        vector<int> a(n + 1);
+        for(int i = 0;i < n;i++){
+            cin>>a[i];
+        }
+        Try(a, n, s, 0, 0);
+        if(ok) cout <<"YES"<<endl;
+        else cout<<"NO"<<endl;
+        ok = 0;
+    }
 }

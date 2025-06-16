@@ -17,8 +17,8 @@ using namespace std;
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> edges;
-vector<int> used;
+vector<vector<int>> edges(100);
+vector<int> used(100);
 
 void DFS(int num){
     if(used[num]) return;
@@ -38,9 +38,6 @@ int main(){
     while(t--){
         int n, m;
         cin>>n>>m;
-
-        edges.resize(1005);
-        used.resize(1005, 0);
 
         while(m--){
             int u, v;
@@ -62,7 +59,7 @@ int main(){
             else{
                 cout<<"NO"<<endl;
             }
-                    used.assign(1005, 0);
+            used.assign(100, 0);
 
         }
     }
